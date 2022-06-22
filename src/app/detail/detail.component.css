@@ -1,0 +1,135 @@
+.navbar-nav {
+    display: flex;
+    padding-left: 0;
+    flex-direction: row !important;
+    margin-bottom: 0;
+    justify-content: space-evenly;
+    list-style: none;
+}
+
+.navbar-collapse.data {
+    display: block !important;
+}
+
+.bg-blue {
+    background-color: #272b69;
+}
+
+.nav-pills .nav-link {
+    border-radius: 0.25rem;
+    font-size: 25px;
+    background-color: #272b69;
+    color: #6c757d;
+    margin: 0px !important;
+}
+
+.nav-pills .nav-link.active,
+.nav-pills .show>.nav-link {
+    color: #f8f9fa;
+    font-size: 25px;
+    background-color: #272b69;
+    box-shadow: none !important;
+}
+
+.circle {
+    background: linear-gradient(to right, rgb(9 112 12), rgb(95 159 93));
+    height: 250px;
+    width: 250px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 25px;
+    color: white;
+}
+
+.weekly-report {
+    display: flex;
+    justify-content: space-around !important;
+    flex-direction: row;
+    flex-wrap: wrap;
+    text-align: center;
+}
+
+.flexdata {
+    display: flex;
+    justify-content: space-around !important;
+    flex-direction: row;
+}
+
+.circle1 {
+    background: rgb(16, 22, 16);
+    height: 200px;
+    width: 200px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    color: white;
+    justify-content: center;
+}
+
+.circle2 {
+    background: rgb(240, 142, 77);
+    height: 100px;
+    width: 100px;
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.mt-10 {
+    margin-top: 6rem;
+}
+
+.text-center1 {
+    text-align: -webkit-center;
+}
+
+.container {
+    padding-top: 50px;
+    padding-bottom: 10px;
+    color: #405065;
+}
+
+.search-hero {
+    max-width: 500px;
+    padding-bottom: 50px;
+    margin: auto;
+}
+
+.form-control {
+    box-shadow: 0 10px 40px 0 #B0C1D9;
+}
+
+.listdata {
+    box-shadow: 6px 4px 12px 0px grey;
+    margin-top: 8px;
+    --mdb-gutter-x: 1px;
+    margin-right: 0px;
+    border-radius: 10px;
+}
+
+@media (max-width: 480px) {
+    #pills-home .card-body .circle {
+        width: 100px;
+        height: 100px;
+    }
+    .circle1 {
+        width: 75px;
+        height: 75px;
+    }
+    .circle2 {
+        width: 55px;
+        height: 55px;
+        font-size: 12px;
+        font-weight: bold;
+    }
+    .card {
+        margin: 2rem 2rem 6rem 2rem !important;
+    }
+    .week {
+        margin-top: 1rem;
+    }
+}

@@ -1,0 +1,16 @@
+server:
+  port: 7777
+spring:
+  jpa:
+    hibernate:
+      ddl-auto: 
+    properties:
+      hibernate: 
+        show_sql: false
+        format_sql: true
+        dialect: org.hibernate.dialect.SQLServer2012Dialect
+  datasource:
+    url: jdbc:sqlserver://brownit.database.windows.net:1433;database=CVO_PORTAL;encrypt=true;trustServerCertificate=false;hostNameInCertificate=*.database.windows.net;loginTimeout=30;
+    username: sfuqua
+    password: CVOaccess$
+    

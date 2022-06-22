@@ -1,0 +1,23 @@
+.welcome {
+    color: hsl(358, 73%, 47%);
+}
+
+.mobile {
+    border: 3px solid #3e3ea3;
+    border-radius: 25px;
+}
+
+.get-otp {
+    color: #fff;
+    background-color: #3e3ea3;
+    text-align: center;
+    border-radius: 25px;
+    text-transform: capitalize;
+}
+
+code-input {
+    --item-spacing: 10px;
+    --item-height: 3em;
+    --item-border: 2px solid #3e3ea3;
+    --item-border-bottom: 2px solid #3e3ea3;
+}

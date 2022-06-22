@@ -1,0 +1,35 @@
+<div class="container mt-5">
+    <div class="input-group">
+        <input type="search" class="form-control rounded" placeholder="Enter Freight number" [(ngModel)]="searchText" aria-label="Search" aria-describedby="search-addon" />
+        <button type="button" class="btn btn-primary">search</button>
+    </div>
+    <div class="row listdata" *ngFor="let tripData of tripListData | filter: searchText " fragment="education">
+        <div class="d-flex justify-content-center text-center mt-3" style="width: 20%;text-align: center;overflow-wrap: anywhere;font-weight: 600;">{{tripData.deliveryDate | date}}</div>
+        <div class="inside inside-left" style="width: 55%;text-align: left;">
+            <p class="fw-bold mb-0">FreightNumber:<small>{{tripData.frieghtId}}</small></p>
+            <p class="fw-bold mb-0">Source:<small>{{tripData.origCityState}}</small></p>
+            <p class="fw-bold mb-0">Desgination:<small>{{tripData.destCityState}}</small></p>
+        </div>
+        <div class="d-flex justify-content-center text-center" style="width: 25%;text-align: center;overflow-wrap: anywhere;color: white; font-weight: 600;">
+            <div *ngIf="tripData.paidstatus == 'Unapproved'" style="background-color: #db3e32;border-top-right-radius: 10px;border-bottom-right-radius: 10px;width: 100%">
+                <p class="mt-4">Not Paid</p>
+            </div>
+            <div *ngIf="tripData.paidstatus =='inprogress'" style="background-color: yellow;width: 100%;border-top-right-radius: 10px;border-bottom-right-radius: 10px;">
+                <p class="mt-4">In Process</p>
+            </div>
+            <div *ngIf="tripData.paidstatus == 'Approved'" style="background:rgb(9 112 12);width: 100%;border-top-right-radius: 10px;border-bottom-right-radius: 10px;">
+                <p class="mt-4">Paid</p>
+            </div>
+        </div>
+    </div>
+
+    <div *ngIf="tripListData == '' || null " class="no_record">
+        <img src="../../assets/images/nodata.png" width="100">
+        <p>No Records found</p>
+    </div>
+
+    <footer>
+        <button class="btn btn-lg btn-block get-otp mt-4" (click)="goback()">Go Back</button>
+    </footer>
+
+</div>

@@ -1,0 +1,14 @@
+.listdata {
+    box-shadow: 6px 4px 12px 0px grey;
+    margin-top: 8px;
+    --mdb-gutter-x: 1px;
+    margin-right: 0px;
+    border-radius: 10px;
+}
+
+.no_record {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 30%;
+}

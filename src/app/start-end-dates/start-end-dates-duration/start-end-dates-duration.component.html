@@ -1,0 +1,54 @@
+<div class="div">
+    <form [formGroup]="startEndDatesForm">
+        <div class="col-md-4">
+            <div class="form-group">
+                <label for="">
+                  <b>{{startDateLabel}} </b>
+                </label>
+                <input class="form-control" matInput [max]="startEndDatesForm.controls['endDate'].value" formControlName="startDate" (dateChange)="startDateClicked()" [matDatepicker]="picker1" placeholder="Choose a date" readonly>
+                <mat-datepicker-toggle matSuffix [for]="picker1" #startDateToggle></mat-datepicker-toggle>
+                <mat-datepicker #picker1></mat-datepicker>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="form-group">
+                <label for="">
+        <b> {{endDateLabel}}</b>
+      </label>
+                <input class="form-control" matInput [min]="startEndDatesForm.controls['startDate'].value" formControlName="endDate" (dateChange)="endDateClicked()" [matDatepicker]="picker2" placeholder="Choose a date" readonly>
+                <mat-datepicker-toggle matSuffix [for]="picker2" #endDateToggle></mat-datepicker-toggle>
+                <mat-datepicker #picker2></mat-datepicker>
+                <span class="warning" *ngIf="startEndDatesForm.controls['endDate'].value &&(startEndDatesForm.controls['endDate'].value < startEndDatesForm.controls['startDate'].value)">
+        <!-- *Please insert a valid {{placeHolder}} -->
+      </span>
+            </div>
+
+        </div>
+
+        <div class="col-md-4">
+            <label class="plus-minus-label" for="">
+      <b>Duration</b>
+    </label>
+            <!-- <div class="plus-minus-wrapper">
+                <i class="fa fa-minus-circle text-navy" (click)="yearsDown()"></i>
+                <div class="plus-minus-text">{{startEndDatesForm.controls['years'].value}}</div>
+                <span> Years</span>
+                <i class="fa fa-plus-circle text-navy" (click)="yearsUp()"></i>
+            </div>
+            <div class="plus-minus-wrapper">
+                <i class="fa fa-minus-circle text-navy" (click)="monthsDown()"></i>
+                <div class="plus-minus-text">{{startEndDatesForm.controls['months'].value}}</div>
+                <span> Months</span>
+                <i class="fa fa-plus-circle text-navy" (click)="monthsUp()"></i>
+            </div>
+
+            <div class="plus-minus-wrapper">
+                <i class="fa fa-minus-circle text-navy" (click)="daysDown()"></i>
+                <div class="plus-minus-text">{{startEndDatesForm.controls['days'].value}}</div>
+                <span> Days</span>
+                <i class="fa fa-plus-circle text-navy" (click)="daysUp()"></i>
+            </div> -->
+        </div>
+    </form>
+</div>

@@ -1,0 +1,13 @@
+spring:
+  profiles:
+    active: dev
+  mvc:
+    view:
+      prefix: /views/
+      suffix: 
+
+server:
+  servlet:
+    context-path: 
+    
+    

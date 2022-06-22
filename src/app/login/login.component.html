@@ -1,0 +1,30 @@
+<section class="vh-100">
+    <div class="container py-5 h-100">
+        <div class="row d-flex justify-content-center align-items-center h-100">
+            <div class="col-12 col-md-8 col-lg-6 col-xl-5">
+                <div class="card shadow-2-strong" style="border-radius: 1rem;">
+                    <div class="card-body p-5 text-center">
+
+                        <img src="https://marvel-b1-cdn.bc0a.com/f00000000184708/www.brownintegratedlogistics.com/img/logo.png" alt="Logo" width="100" height="50">
+
+                        <h1 class="mt-5 welcome">Welcome</h1>
+                        <form [formGroup]="profileForm">
+                            <div class="mb-4">
+                                <input (keypress)="keyPress($event)" type="mobile" id="typeMobileX-2" class="form-control form-control-lg mobile" formControlName="mobileNumber" placeholder="Mobile Number" />
+                            </div>
+                        </form>
+                        <button class="btn btn-lg btn-block get-otp" (click)="otpget()" [disabled]="numberdisable">Get Otp</button>
+
+                        <p class="mt-4">Enter the 4 digit OTP--<span>{{otpdata}}</span></p>
+                        <code-input class="mb-4" [isCodeHidden]="true" [codeLength]="4" (codeChanged)="onCodeChanged($event)" (codeCompleted)="onCodeCompleted($event)">
+                        </code-input>
+
+                        <button class="btn btn-lg btn-block get-otp mb-2" [disabled]="isDisabled" (click)="login()">Login</button>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<router-outlet></router-outlet>
