@@ -8,14 +8,19 @@
                         <img src="https://marvel-b1-cdn.bc0a.com/f00000000184708/www.brownintegratedlogistics.com/img/logo.png" alt="Logo" width="100" height="50">
 
                         <h1 class="mt-5 welcome">Welcome</h1>
+                        <div class="alert alert-success" *ngIf="optvalid">
+                            <strong>OTP Sent Successfully</strong>
+                        </div>
                         <form [formGroup]="profileForm">
                             <div class="mb-4">
-                                <input (keypress)="keyPress($event)" type="mobile" id="typeMobileX-2" class="form-control form-control-lg mobile" formControlName="mobileNumber" placeholder="Mobile Number" />
+                                <input (keyup)="valPhone()" type="mobile" id="typeMobileX-2" pattern="[0-9]*" class="form-control form-control-lg mobile" formControlName="mobileNumber" placeholder="Mobile Number" />
+                                <span *ngIf="errordisable">Enter 10 digit mobile number</span>
                             </div>
+
                         </form>
                         <button class="btn btn-lg btn-block get-otp" (click)="otpget()" [disabled]="numberdisable">Get Otp</button>
 
-                        <p class="mt-4">Enter the 4 digit OTP--<span>{{otpdata}}</span></p>
+                        <p class="mt-4">Enter the 4 digit OTP</p>
                         <code-input class="mb-4" [isCodeHidden]="true" [codeLength]="4" (codeChanged)="onCodeChanged($event)" (codeCompleted)="onCodeCompleted($event)">
                         </code-input>
 

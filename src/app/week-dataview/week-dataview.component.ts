@@ -1,5 +1,5 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Component, DebugElement, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { environment } from 'src/environments/environment';
 
@@ -18,15 +18,16 @@ const headerOptions = {
   }),
 
 };
+
 @Component({
-  selector: 'app-detail',
-  templateUrl: './detail.component.html',
-  styleUrls: ['./detail.component.css']
+  selector: 'app-week-dataview',
+  templateUrl: './week-dataview.component.html',
+  styleUrls: ['./week-dataview.component.css'],
 })
 
-export class DetailComponent implements OnInit {
+export class WeekDataviewComponent implements OnInit {
   public API_URL = environment.API_URL;
-userdata:any
+  userdata:any
   userdata1:[] | undefined;
   frieghtId: any;
   amountData: any;
@@ -50,7 +51,7 @@ userdata:any
   }
 
   getData() {
-    this.http.post<any>(this.API_URL + 'getMonthDetails',{frieghtId: this.frieghtId},headerOptions).subscribe(res=>{
+    this.http.post<any>(this.API_URL + 'getWeekDetails', {frieghtId: this.frieghtId},headerOptions).subscribe(res=>{
         this.userdata = res;
         this.amountData = this.userdata.calcAndPaydesc;
       })
@@ -58,11 +59,9 @@ userdata:any
 
   goback() {
     this.router.navigate(
-      ['/app-weekly-summary'],
+      ['/getdatalist'],
       { queryParams: { driverId: this.driverId } }
     );
   }
 
 }
-
-

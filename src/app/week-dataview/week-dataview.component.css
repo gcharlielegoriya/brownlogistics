@@ -69,7 +69,7 @@
 }
 
 .circle2 {
-    background: #db3e32;
+    background: rgb(240, 142, 77);
     height: 100px;
     width: 100px;
     color: white;
@@ -132,19 +132,4 @@
     .week {
         margin-top: 1rem;
     }
-}
-
-.no_record {
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
-    width: 30%;
-}
-
-.ng-reflect-model {
-    display: none;
-}
-
-[ng-reflect-model$="test"] {
-    background: yellow;
 }

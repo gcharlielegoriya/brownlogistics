@@ -1,37 +1,65 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, ValidatorFn, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, ValidatorFn, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { filter } from 'rxjs';
+import { environment } from 'src/environments/environment';
+import { UniquedataPipe } from './uniquedata.pipe';
 
+const headerOptions = {
+
+  headers: new HttpHeaders({
+
+    'Content-Type': 'application/json',
+
+    'Access-Control-Allow-Origin': '*',
+
+    'Access-Control-Allow-Headers': 'Content-Type',
+
+    'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
+
+  }),
+
+};
 @Component({
   selector: 'app-weekly-summary',
   templateUrl: './weekly-summary.component.html',
-  styleUrls: ['./weekly-summary.component.css']
+  styleUrls: ['./weekly-summary.component.css'],
+  providers:[UniquedataPipe]
 })
+
 export class WeeklySummaryComponent implements OnInit {
-  searchText:any;  date:any ;
+  public API_URL = environment.API_URL;
+  searchText:any;  paidDate:any ;
+  contactForm!: FormGroup;
   filterOnAge:any;
   fg!: FormGroup;
   tripListData :any
   driverId: any;
   completed: any;
+  condition: boolean = true;
   earning: any;
   inProgress: any;
+  activeButton:any;
   completedtrip: any;
   approvedata: any;
   flag: boolean = false;
+  filterData: any;
+  dategg: any;
 
   constructor(private activatedRoute: ActivatedRoute,
               private http: HttpClient,
-              private router: Router) {
+              private router: Router,
+              private fb:FormBuilder) {
     this.activatedRoute.queryParams.subscribe(params => {
       this.driverId = params['driverId'];
-      console.log( this.driverId); // Print the parameter to the console.
   });
   }
 
   ngOnInit(): void {
+    this.contactForm = this.fb.group({
+      paidDate: [null]
+    });
     this.dashboardDataget();
     this.getTripAll();
     // this.notPaid();
@@ -48,7 +76,6 @@ export class WeeklySummaryComponent implements OnInit {
   }
 
   notPaid(data:any){
-    console.log(data.target.id);
     this.router.navigate(
       ['/getdatalist'],
       { queryParams: { driverId: this.driverId , status: data.target.id} }
@@ -56,54 +83,37 @@ export class WeeklySummaryComponent implements OnInit {
 
   }
 
-  inprogress(){
-
-  }
-
-  completeTrip(){
-
-  }
-
 
   StartEndDatesOutput(event:any){
-    this.date = event;
-    console.log(event);
+    this.paidDate = event;
   }
 
   dashboardDataget(){
-    this.http.post<any>(`http://localhost:7777/getDashboardDetails `,{driverId:this.driverId}).subscribe(res=>{
-      console.log(res);
+    this.http.post<any>(this.API_URL + 'getDashboardDetails',{driverId:this.driverId},headerOptions).subscribe(res=>{
       this.completedtrip = res.complete;
       this.earning = res.earning;
       this.inProgress =res.inProgress
     })
   }
 
-
-  getTripAll() {
-    this.http.post<any>('http://localhost:7777/getAllTripDetails',{driverId:this.driverId} ).subscribe(res=>{
-      this.tripListData = res.tripDetails;
-      console.log(this.tripListData);
-      this.filterOnAge = this.tripListData.filter((person: { paidStatus: string; }) => person.paidStatus === 'Paid' );
-    })
+  clicked(even:any){
+    if(even.currentTarget.id == 'pills-profile-tab'){
+      this.condition = true;
+      this.contactForm.get('paidDate')?.setValue(null);
+    }
   }
 
-  // private dateRangeValidator: ValidatorFn = (): {
-  //   [key: string]: any;
-  // } | null => {
-  //   let invalid = false;
-  //   // const from = this.fg.get("from").value;
-  //   // const to = this.fg && this.fg.get("to").value;
-  //   // if (from && to) {
-  //   //   invalid = new Date(from).valueOf() > new Date(to).valueOf();
-  //   // }
-  //   // return invalid ? { invalidRange: { from, to } } : null;
-  // };
+  showPhase(event:any){
+    console.log(event)
+  }
 
 
-  // hero(m:any) {
-  //   this.router.('')
-  // }
+  getTripAll() {
+    this.http.post<any>(this.API_URL + 'getAllTripDetails',{driverId:this.driverId},headerOptions).subscribe(res=>{
+      this.tripListData = res.tripDetails;
+      this.filterOnAge = [...new Set(this.tripListData.map((item: { paidDate: any; }) => item.paidDate))];
+    })
+  }
 
   getTripDetails(id:any) {
     this.router.navigate(
@@ -111,4 +121,5 @@ export class WeeklySummaryComponent implements OnInit {
       { queryParams: { frieghtId: id ,driverId: this.driverId } }
     );
   }
+
 }

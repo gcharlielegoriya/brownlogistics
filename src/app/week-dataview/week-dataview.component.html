@@ -4,9 +4,9 @@
     <div class="container-fluid">
         <!-- Toggle button -->
         <button class="navbar-toggler" type="button" data-mdb-toggle="collapse" data-mdb-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-    <!-- <i class="fas fa-bars"></i> -->
-    <img src="https://marvel-b1-cdn.bc0a.com/f00000000184708/www.brownintegratedlogistics.com/img/logo.png" height="25" alt="MDB Logo" loading="lazy" />
-  </button>
+  <!-- <i class="fas fa-bars"></i> -->
+  <img src="https://marvel-b1-cdn.bc0a.com/f00000000184708/www.brownintegratedlogistics.com/img/logo.png" height="25" alt="MDB Logo" loading="lazy" />
+</button>
 
         <!-- Collapsible wrapper -->
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
@@ -38,11 +38,11 @@
                 </a>
                 <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownMenuAvatar">
                     <!-- <li>
-                      <a class="dropdown-item" href="#">My profile</a>
-                  </li>
-                  <li>
-                      <a class="dropdown-item" href="#">Settings</a>
-                  </li> -->
+                    <a class="dropdown-item" href="#">My profile</a>
+                </li>
+                <li>
+                    <a class="dropdown-item" href="#">Settings</a>
+                </li> -->
                     <li>
                         <a class="dropdown-item" href="#">Logout</a>
                     </li>
@@ -65,9 +65,9 @@
                     <p class="fw-bold">Origin:<small class="fw-3"> {{userdata.source}}</small></p>
                     <p class="fw-bold">Destination:<small class="fw-3"> {{userdata.destination}}</small></p>
                     <span *ngFor="let data of amountData">
-                      <p class="fw-bold">Amount:<small>$ {{data.totalPayAmt}}</small></p>
-                    <p class="fw-bold ">Description:<small> {{data.payDescription}}</small></p>
-                    </span>
+                    <p class="fw-bold">Amount:<small>$ {{data.totalPayAmt}}</small></p>
+                  <p class="fw-bold ">Description:<small> {{data.payDescription}}</small></p>
+                  </span>
                 </div>
             </div>
         </div>

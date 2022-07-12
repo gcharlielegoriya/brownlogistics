@@ -27,7 +27,7 @@
                 </a>
                 <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownMenuLink">
                     <li>
-                        <a class="dropdown-item" href="#">Something else here</a>
+                        <a class="dropdown-item" href="#">Notification coming soon</a>
                     </li>
                 </ul>
             </div>
@@ -62,16 +62,16 @@
             <div class="card-body">
                 <div class="flex-container weekly-report">
                     <div class="col-lg-4 text-center1 my-auto">
-                        <div class="circle" (click)="notPaid($event)" id="Approved" href="#pills-contact">${{earning}}</div>
+                        <div class="circle" (click)="notPaid($event)" href="#pills-contact">${{earning}}</div>
                         <p class="fw-bold">Earnings</p>
                     </div>
                     <div class="col-lg-4 text-center1 my-auto">
-                        <div class="circle1" (click)="notPaid($event)" id="Inprocess">${{inProgress}}
+                        <div class="circle1" (click)="notPaid($event)" id="Unapproved">${{inProgress}}
                         </div>
-                        <p class="fw-bold">Inprogress</p>
+                        <p class="fw-bold">In Process</p>
                     </div>
                     <div class="col-lg-4 text-center1 my-auto">
-                        <div class="circle2" (click)="notPaid($event)" id="Unapproved">${{completedtrip}}</div>
+                        <div class="circle2" (click)="notPaid($event)" id="Approved">${{completedtrip}}</div>
                         <p class="fw-bold">Complete</p>
                     </div>
                 </div>
@@ -80,44 +80,54 @@
     </div>
     <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab1">
         <div class="container">
-            <div class="row">
+            <div class="row" style="margin-bottom:85px;">
                 <div class="input-group">
-                    <input type="search" class="form-control rounded" placeholder="Enter Freight number" [(ngModel)]="searchText" aria-label="Search" aria-describedby="search-addon" />
+                    <input type="search" class="form-control rounded" placeholder="Enter Freight Number" [(ngModel)]="searchText" aria-label="Search" aria-describedby="search-addon" />
                     <button type="button" class="btn btn-primary">search</button>
                 </div>
-                <div>
-                    <select class="form-select mt-3" aria-label="Default select example" [(ngModel)]="date">
-                    <option  value="" selected disabled>Open this select menu</option>
-                    <option *ngFor="let data of filterOnAge" [value]="data.date" >{{data.date | date}}</option>
+                <form [formGroup]="contactForm">
+                    <div>
+                        <select formControlName="paidDate" aria-autocomplete="list" class="form-select mt-3" id="data_select" [(ngModel)]="paidDate" [ngClass]=" condition ? 'primary' : 'secondary'">
+                    <option  value="0">Clear Filter</option>
+                    <option *ngFor="let data of filterOnAge" [value]="data" >{{data | date}}</option>
                   </select>
-                </div>
-
-
-                <div class="row listdata" *ngFor="let tripData of tripListData | filter: searchText | filter: date" (click)="getTripDetails(tripData.frieghtId)" fragment="education">
-                    <div class="d-flex justify-content-center text-center mt-3" style="width: 20%;text-align: center;overflow-wrap: anywhere;font-weight: 600;">{{tripData.date | date:'mediumDate'}}</div>
-                    <div class="inside inside-left" style="width: 55%;text-align: left;">
-                        <p class="fw-bold mb-0">Freight:<small>{{tripData.frieghtId}}</small></p>
-                        <p class="fw-bold mb-0">Source:<small>{{tripData.source}}</small></p>
-                        <p class="fw-bold mb-0">Desgination:<small>{{tripData.destination}}</small></p>
                     </div>
-                    <div class="d-flex justify-content-center text-center" style="width: 25%;text-align: center;overflow-wrap: anywhere;color: white; font-weight: 600;">
-                        <div *ngIf="tripData.paidStatus == 'not_paid'" style="background-color: #db3e32;border-top-right-radius: 10px;border-bottom-right-radius: 10px;width: 100%">
-                            <p class="mt-4">Not Paid</p>
+                </form>
+                <ng-container *ngIf="( tripListData | filter : searchText) as result">
+                    <div class="row listdata" *ngFor="let tripData of tripListData | filter: searchText | filter: paidDate" (click)="getTripDetails(tripData.frieghtId)" fragment="education">
+                        <div class="d-flex justify-content-center text-center mt-4" style="width: 20%;text-align: center;overflow-wrap: anywhere;font-weight: 600;">{{tripData.paidDate | date:'mediumDate'}}</div>
+                        <div class="inside inside-left" style="width: 55%;text-align: left;">
+                            <p class="fw-bold mb-0">Freight:<small> {{tripData.frieghtId}}</small></p>
+                            <p class="fw-bold mb-0">Origin:<small> {{tripData.source}}</small></p>
+                            <p class="fw-bold mb-0">Destination:<small> {{tripData.destination}}</small></p>
+                            <p class="fw-bold mb-0">Amount:<small> ${{tripData.totalPayAmt}}</small></p>
                         </div>
-                        <div *ngIf="tripData.paidStatus =='inprogress'" style="background-color: yellow;width: 100%;border-top-right-radius: 10px;border-bottom-right-radius: 10px;">
-                            <p class="mt-4">In Process</p>
-                        </div>
-                        <div *ngIf="tripData.paidStatus == 'Paid'" style="background:rgb(9 112 12);width: 100%;border-top-right-radius: 10px;border-bottom-right-radius: 10px;">
-                            <p class="mt-4">Paid</p>
+                        <div class="d-flex justify-content-center text-center" style="width: 25%;text-align: center;overflow-wrap: anywhere;color: white; font-weight: 600;">
+                            <div *ngIf="tripData.paidStatus == 'Unapproved'" style="background-color: #db3e32;border-top-right-radius: 10px;border-bottom-right-radius: 10px;width: 100%">
+                                <p class="mt-4">Not Paid</p>
+                            </div>
+                            <div *ngIf="tripData.paidStatus =='inprogress'" style="background-color: yellow;width: 100%;border-top-right-radius: 10px;border-bottom-right-radius: 10px;">
+                                <p class="mt-4">In Process</p>
+                            </div>
+                            <div *ngIf="tripData.paidStatus == 'Paid'" style="background:rgb(9 112 12);width: 100%;border-top-right-radius: 10px;border-bottom-right-radius: 10px;">
+                                <p class="mt-4">Paid</p>
+                            </div>
                         </div>
                     </div>
-                </div>
+
+                    <div *ngIf="result.length === 0" class="no_record">
+                        <img src="../../assets/images/nodata.png" width="100">
+                        <p>No Records found</p>
+                    </div>
+
+                </ng-container>
+
             </div>
 
-            <div *ngIf="tripListData == '' || null " class="no_record">
+            <!-- <div *ngIf="tripListData === ''" class="no_record">
                 <img src="../../assets/images/nodata.png" width="100">
                 <p>No Records found</p>
-            </div>
+            </div> -->
         </div>
     </div>
     <div class="tab-pane fade" id="pills-contact" role="tabpanel" aria-labelledby="pills-contact-tab">
@@ -136,7 +146,7 @@
                     <a class="nav-link active" id="pills-home-tab" data-toggle="pill" href="#pills-home" role="tab" aria-controls="pills-home" aria-selected="true"><i class="fas fa-home"></i></a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" id="pills-profile-tab" data-toggle="pill" href="#pills-profile" role="tab" aria-controls="pills-profile" aria-selected="false"><i class="far fa-calendar"></i></a>
+                    <a class="nav-link" (click)="clicked($event)" id="pills-profile-tab" data-toggle="pill" href="#pills-profile" role="tab" aria-controls="pills-profile" aria-selected="false"><i class="far fa-calendar"></i></a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" id="pills-contact-tab" data-toggle="pill" href="#pills-contact" role="tab" aria-controls="pills-contact" aria-selected="false"><i class="fas fa-clipboard-list"></i></a>
